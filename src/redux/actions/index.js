@@ -212,6 +212,7 @@ export const createExperience = (userId, data, expImage) => {
 };
 
 export const updateExperience = (userId, expId, data, expImage) => {
+  console.log("IMage", expImage);
   return async (dispatch) => {
     try {
       const res = await fetch(
@@ -229,30 +230,34 @@ export const updateExperience = (userId, expId, data, expImage) => {
 
       const expData = await res.json();
       if (expImage) {
-      }
+        const formData = new FormData();
+        formData.append("expImage", expImage);
+        const imageRes = await fetch(
+          `${process.env.REACT_APP_BE_URL}/users/6418374d8cec02cd9cc1dfd8/experiences/${expId}/image`,
+          {
+            method: "POST",
+            body: formData,
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzM2EzZDgzODFmYzAwMTNmZmZhZDYiLCJpYXQiOjE2NzY4ODQ1NDIsImV4cCI6MTY3ODA5NDE0Mn0.yy7dqsjX4YYSOfQOfYOZsSdFYZqn9oQ_CAzHWsa775s",
+              // "Content-Type": "application/json",
+            },
+          }
+        );
 
-      const formData = new FormData();
-      formData.append("expImage", expImage);
-      const imageRes = await fetch(
-        `${process.env.REACT_APP_BE_URL}/users/6418374d8cec02cd9cc1dfd8/experiences/${expId}/image`,
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzM2EzZDgzODFmYzAwMTNmZmZhZDYiLCJpYXQiOjE2NzY4ODQ1NDIsImV4cCI6MTY3ODA5NDE0Mn0.yy7dqsjX4YYSOfQOfYOZsSdFYZqn9oQ_CAzHWsa775s",
-            // "Content-Type": "application/json",
-          },
+        const experience = await imageRes.json();
+
+        if (res.ok) {
+          console.log("experience", experience);
+          dispatch({
+            type: UPDATE_EXPERIENCE,
+            payload: experience,
+          });
         }
-      );
-
-      const experience = await imageRes.json();
-
-      if (res.ok) {
-        console.log("experience", experience);
+      } else {
         dispatch({
           type: UPDATE_EXPERIENCE,
-          payload: experience,
+          payload: expData,
         });
       }
     } catch (error) {

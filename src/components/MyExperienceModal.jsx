@@ -33,6 +33,7 @@ const MyExperienceModal = (props) => {
     // console.log("update exptoedit", expToEdit)
     if (expToEdit !== null) {
       setAddExperience(expToEdit);
+      setExpImage(null)
     } else {
       setAddExperience({
         role: "",

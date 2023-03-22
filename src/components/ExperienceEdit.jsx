@@ -16,6 +16,7 @@ const ExperienceEdit = (props) => {
 
   const changeExperience = async (e) => {
     e.preventDefault();
+    
     try {
       const experienceDetails = {
         role: document.getElementById("role").value,

@@ -25,7 +25,8 @@ const ExperienceTile = (props) => {
             <span className="icon-hover d-flex justify-content-center align-items-center ">
               <BsFillPencilFill
                 fill="rgba(0,0,0,0.6)"
-                onClick={props.handleShow}
+                // onClick={props.handleShow}
+                onClick={() => props.handleShow(props.exp._id)}
               />
             </span>
             <span className="icon-hover d-flex justify-content-center align-items-center ">
