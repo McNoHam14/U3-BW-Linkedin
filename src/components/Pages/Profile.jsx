@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import Footer from "../Footer";
 
 const Profile = () => {
+  
   const user = useSelector(state => state.getProfile.fetchProfile)
   useEffect(() => {
     document.title = user.name + " " + user.surname + " | BlinkedIn"
