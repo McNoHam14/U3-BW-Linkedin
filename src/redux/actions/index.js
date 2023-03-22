@@ -29,7 +29,10 @@ export const DELETE_POST = "DELETE_POST";
 export const fetchOwnProfile = () => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch(profileUrl, options1);
+      let response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/users/6418374d8cec02cd9cc1dfd8`,
+        options1
+      );
       if (response.ok) {
         const profileData = await response.json();
 
@@ -310,7 +313,7 @@ export const createPost = (data, handleClose, postImage) => {
     try {
       const payload = {
         text: data.text,
-        user: "6418374d8cec02cd9cc1dfda",
+        user: "6418374d8cec02cd9cc1dfd8",
       };
       const res = await fetch(`${process.env.REACT_APP_BE_URL}/posts`, {
         method: "POST",
@@ -370,7 +373,7 @@ export const updatePost = (postId, data) => {
   return async (dispatch) => {
     try {
       const res = await fetch(
-        `https://striveschool-api.herokuapp.com/api/posts/${postId}`,
+        `${process.env.REACT_APP_BE_URL}/posts/${postId}`,
         {
           method: "PUT",
           body: JSON.stringify(data),
@@ -392,11 +395,37 @@ export const updatePost = (postId, data) => {
   };
 };
 
+export const friendRequest = (friend) => {
+  console.log("friend", friend);
+  return async (dispatch) => {
+    try {
+      const data = {
+        userId: "6418374d8cec02cd9cc1dfdf",
+      };
+      const res = await fetch(
+        `${process.env.REACT_APP_BE_URL}/users/${friend}/friendRequest`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (res.ok) {
+        console.log("friend request completed", data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const deletePost = (postId) => {
   return async (dispatch) => {
     try {
       const res = await fetch(
-        `https://striveschool-api.herokuapp.com/api/posts/${postId}`,
+        `${process.env.REACT_APP_BE_URL}/posts/${postId}`,
         {
           method: "DELETE",
           headers: {

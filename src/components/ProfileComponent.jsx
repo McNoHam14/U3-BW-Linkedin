@@ -103,7 +103,7 @@ const ProfileComponent = () => {
                     </a>
                   </div>
                   <a href="#contact-info" className="d-inline-block links-blue">
-                    500+ connections
+                    {profileData.acceptedFriends.length} {"Connections"}
                   </a>
                   <div className="mt-2">
                     <Button

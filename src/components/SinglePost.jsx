@@ -6,7 +6,7 @@ import { BiComment, BiLike, BiSend, BiShuffle } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost } from "../redux/actions";
+import { deletePost, friendRequest } from "../redux/actions";
 import { AiFillLike } from "react-icons/ai";
 import EditPostModal from "./EditPostModal";
 import { useState } from "react";
@@ -29,6 +29,9 @@ const SinglePost = (props) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleFriendReq = () => {
+    dispatch(friendRequest(props.post.user._id))
+  }
 
   const handleLike = () => {
     if (isLiked) {
@@ -83,6 +86,7 @@ const SinglePost = (props) => {
                 <Dropdown.Item eventKey="1">Save Post</Dropdown.Item>
                 <Dropdown.Item eventKey="2">Copy link to post</Dropdown.Item>
                 <Dropdown.Item eventKey="3">Embed this post</Dropdown.Item>
+                <Dropdown.Item eventKey="4" onClick={handleFriendReq}>Send Friend Request</Dropdown.Item>
                 {props.post?.user?._id === profileDataID && (
                   <Dropdown.Item eventKey="4" onClick={handleShow}>
                     Edit this post
