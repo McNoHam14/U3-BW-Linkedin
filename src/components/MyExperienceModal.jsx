@@ -8,6 +8,8 @@ import {
 } from "../redux/actions";
 import { format } from "date-fns/";
 import { parseISO } from "date-fns";
+import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const MyExperienceModal = (props) => {
   const dispatch = useDispatch();
@@ -85,6 +87,7 @@ const MyExperienceModal = (props) => {
 
     dispatch(getAllExperiences(user._id));
     props.handleClose();
+toast.success("Experience added")
   };
 
   return (
