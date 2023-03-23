@@ -24,16 +24,15 @@ const ProfileComponent = () => {
     dispatch(fetchOwnProfile());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const uploadImage = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("profile", showImage);
+    data.append("userImg", showImage);
     try {
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/${profileData._id}/picture`,
+        `${process.env.REACT_APP_BE_URL}/users/${profileData._id}/image`,
         {
-          method: "POST",
+          method: "PUT",
           // mode: "no-cors",
           body: data,
           headers: {
@@ -49,24 +48,6 @@ const ProfileComponent = () => {
       }
     } catch (error) {
       console.log(error);
-    }
-  };
-  const openCV = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BE_URL}/profile/users/${process.env.REACT_APP_USER_ID}/CV`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch");
-      } else {
-        const file = await response.blob();
-        const fileUrl = window.URL.createObjectURL(file);
-        window.open(fileUrl, "_blank");
-      }
-    } catch (error) {
-      console.log("error");
-      console.error(error);
     }
   };
 
@@ -143,11 +124,12 @@ const ProfileComponent = () => {
                       More
                     </Button>
                     <Button
-                      variant="outline-primary "
+                      variant="outline-secondary "
                       className="rounded-pill py-1 d-inline-block ml-2"
-                      onClick={openCV}
+                      href={`${process.env.REACT_APP_BE_URL}/profile/users/${process.env.REACT_APP_USER_ID}/CV`}
+                      download
                     >
-                      Open CV
+                      Download CV
                     </Button>
                   </div>
                 </>
