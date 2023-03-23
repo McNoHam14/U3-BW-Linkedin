@@ -437,7 +437,7 @@ export const friendRequest = (friend) => {
   return async (dispatch) => {
     try {
       const data = {
-        userId: "6418374d8cec02cd9cc1dfdf",
+        userId: "6418374d8cec02cd9cc1dfda",
       };
       const res = await fetch(
         `${process.env.REACT_APP_BE_URL}/users/${friend}/friendRequest`,
