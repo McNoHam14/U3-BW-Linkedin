@@ -1,0 +1,24 @@
+.liked-texed {
+  font-size: 0.75rem;
+  color: rgb(0, 0, 0, 0.5);
+}
+
+.comment-style {
+  background-color: rgb(242 242 242);
+  margin-top: 30px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.comment-text {
+  font-size: 0.85rem;
+  margin-left: 42px;
+}
+
+.user-comment-img {
+  max-width: 30px;
+  border-radius: 50%;
+}
+.comment-img-col {
+  max-width: 40px;
+}
