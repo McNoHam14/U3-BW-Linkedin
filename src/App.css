@@ -38,3 +38,10 @@
     transform: rotate(360deg);
   }
 }
+
+.cv-download {
+  border: 1px solid rgb(108 117 125);
+  padding: 4px;
+  border-radius: 20px;
+  padding-inline: 15px;
+}
