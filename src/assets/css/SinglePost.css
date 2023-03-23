@@ -4,15 +4,18 @@
 }
 
 .comment-style {
+  position: relative;
   background-color: rgb(242 242 242);
   margin-top: 30px;
   border-radius: 5px;
   padding: 10px;
+  margin-right: 15px;
+  margin-left: 10px;
 }
 
 .comment-text {
-  font-size: 0.85rem;
-  margin-left: 42px;
+  font-size: 0.9rem;
+  margin-left: 17px;
 }
 
 .user-comment-img {
@@ -21,4 +24,27 @@
 }
 .comment-img-col {
   max-width: 40px;
+}
+
+.modal-backdrop {
+  opacity: 0.5 !important;
+}
+
+.bi-three-dots {
+  cursor: pointer;
+}
+
+.comment-btn {
+  border-radius: 5px;
+}
+
+.comment-title {
+  display: inline;
+  font-size: 1.3rem;
+}
+
+.comment-time {
+  display: inline;
+  font-size: 0.8rem;
+  color: rgb(0, 0, 0, 0.5);
 }

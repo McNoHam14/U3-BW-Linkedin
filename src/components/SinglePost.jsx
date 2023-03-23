@@ -5,6 +5,7 @@ import {
   Image,
   ListGroup,
   Row,
+  ButtonGroup,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../assets/css/style.css";
@@ -17,7 +18,6 @@ import { deletePost, friendRequest } from "../redux/actions";
 import { AiFillLike } from "react-icons/ai";
 import EditPostModal from "./EditPostModal";
 import { useEffect, useState } from "react";
-import { FaSortAmountDown } from "react-icons/fa";
 import { Form, Button } from "react-bootstrap";
 
 const SinglePost = (props) => {
@@ -26,15 +26,14 @@ const SinglePost = (props) => {
   const profileDataID = useSelector(
     (state) => state.getProfile.fetchProfile._id
   );
+  const [editMode, setEditMode] = useState(false);
   const [userData, setUserData] = useState({});
   const [commentSection, setCommentSection] = useState(false);
   const [allComments, setAllComments] = useState(null);
-  const [commentUser, setCommentUser] = useState(null);
   const [commentBody, setCommentBody] = useState({
     userId: process.env.REACT_APP_USER_ID,
     comment: "",
   });
-
   const [amountOfLikes, setAmountOfLikes] = useState(0);
   const dispatch = useDispatch();
   const daysAgo = formatDistanceToNow(new Date(props.post?.createdAt), {
@@ -43,6 +42,8 @@ const SinglePost = (props) => {
   const handleDelete = () => {
     dispatch(deletePost(props.post?._id));
   };
+
+  const [commentId, setCommentId] = useState(null);
 
   const likeRequestBody = { userId: process.env.REACT_APP_USER_ID };
 
@@ -158,6 +159,10 @@ const SinglePost = (props) => {
         }
       );
       getComments();
+      setCommentBody({
+        userId: process.env.REACT_APP_USER_ID,
+        comment: "",
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch");
       }
@@ -194,7 +199,6 @@ const SinglePost = (props) => {
       }
 
       const user = await response.json();
-      console.log(user);
 
       setUserData((prevState) => ({
         ...prevState,
@@ -204,6 +208,60 @@ const SinglePost = (props) => {
       console.log("error");
       console.error(error);
     }
+  };
+
+  const editComment = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/posts/${props.post._id}/comments/${commentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(commentBody),
+        }
+      );
+      setEditMode(false);
+      getComments();
+      setCommentBody({
+        userId: process.env.REACT_APP_USER_ID,
+        comment: "",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteComment = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/posts/${props.post._id}/comments/${commentId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      setEditMode(false);
+      getComments();
+      setCommentBody({
+        userId: process.env.REACT_APP_USER_ID,
+        comment: "",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const editDeleteComment = (comment) => {
+    setEditMode(true);
+    setCommentBody(comment);
+    setCommentId(comment._id);
   };
 
   return (
@@ -334,13 +392,32 @@ const SinglePost = (props) => {
                   }}
                 />
               </Form.Group>
-              <Button variant="primary" onClick={postComment}>
-                Post
-              </Button>
+              {editMode ? (
+                <ButtonGroup>
+                  <Button
+                    variant="primary"
+                    className="comment-btn"
+                    onClick={editComment}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="danger"
+                    className="comment-btn"
+                    onClick={deleteComment}
+                  >
+                    Delete
+                  </Button>
+                </ButtonGroup>
+              ) : (
+                <Button variant="primary" onClick={postComment}>
+                  Post
+                </Button>
+              )}
+
               {allComments?.map((comment) => {
-                //check if the userid from the comment is the id from env, if yes schow edit button
                 return (
-                  <div key={comment._id} className="comment-style">
+                  <div key={comment._id}>
                     <Row className="align-items-center">
                       <Col className="comment-img-col">
                         <Image
@@ -349,13 +426,33 @@ const SinglePost = (props) => {
                           className="user-comment-img"
                         ></Image>
                       </Col>
-                      <Col>
-                        <h3 className="mb-0">
-                          {userData[comment.userId]?.name}
-                        </h3>
+                      <Col className="comment-style">
+                        <Row className="align-items-center">
+                          <Col className="title-time">
+                            <h3 className="mb-0 mr-2 comment-title">
+                              {userData[comment.userId]?.name}
+                            </h3>
+                            <div className="comment-time">
+                              {formatDistanceToNow(new Date(comment.updatedAt))}{" "}
+                              ago
+                            </div>
+                          </Col>
+                          {comment.userId === process.env.REACT_APP_USER_ID && (
+                            <Col className="d-flex justify-content-end">
+                              <i
+                                className="bi bi-three-dots"
+                                onClick={() => {
+                                  editDeleteComment(comment);
+                                }}
+                              ></i>
+                            </Col>
+                          )}
+                        </Row>
+                        <Row>
+                          <p className="comment-text">{comment.comment}</p>
+                        </Row>
                       </Col>
                     </Row>
-                    <p className="comment-text mt-2">{comment.comment}</p>
                   </div>
                 );
               })}
