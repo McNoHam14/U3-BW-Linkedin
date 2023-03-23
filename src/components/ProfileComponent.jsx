@@ -24,16 +24,15 @@ const ProfileComponent = () => {
     dispatch(fetchOwnProfile());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const uploadImage = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("profile", showImage);
+    data.append("userImg", showImage);
     try {
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/${profileData._id}/picture`,
+        `${process.env.REACT_APP_BE_URL}/users/${profileData._id}/image`,
         {
-          method: "POST",
+          method: "PUT",
           // mode: "no-cors",
           body: data,
           headers: {
