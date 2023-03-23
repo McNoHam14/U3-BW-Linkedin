@@ -34,7 +34,14 @@ const ExperiencesContainer = () => {
       <div className="d-flex align-items-center justify-content-between experience pr-3 ">
         <h2 className="pt-0 px-0 mb-0">Experience</h2>
         <div className="d-flex align-items-center">
-          <div className="icon-hover d-flex justify-content-center align-items-center">
+          <a
+            href={`${process.env.REACT_APP_BE_URL}/users/6418374d8cec02cd9cc1dfd8/experiences/CSV`}
+            download
+          >
+            <BsPlus size="38" fill="rgba(0,0,0,0.6)" />
+          </a>
+
+          <div>
             <BsPlus
               size="38"
               fill="rgba(0,0,0,0.6)"
@@ -49,13 +56,19 @@ const ExperiencesContainer = () => {
         userId={user?._id}
       />
       {experiences.length > 0 &&
-        experiences.slice().sort((a,b) => (parseISO(b.startDate).getTime() - parseISO(a.startDate).getTime())).map((exp) => (
-          <ExperienceTile
-            key={exp._id}
-            exp={exp}
-            handleShow={() => handleShow(exp._id)}
-          />
-        ))}
+        experiences
+          .slice()
+          .sort(
+            (a, b) =>
+              parseISO(b.startDate).getTime() - parseISO(a.startDate).getTime()
+          )
+          .map((exp) => (
+            <ExperienceTile
+              key={exp._id}
+              exp={exp}
+              handleShow={() => handleShow(exp._id)}
+            />
+          ))}
     </section>
   );
 };

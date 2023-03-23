@@ -14,6 +14,7 @@ const MyExperienceModal = (props) => {
 
   const user = useSelector((state) => state.getProfile.fetchProfile);
   const expToEdit = useSelector((state) => state.exp.experienceToEdit);
+  console.log("experience to edit", expToEdit);
 
   const [addExperience, setAddExperience] = useState({
     role: "",
@@ -24,12 +25,15 @@ const MyExperienceModal = (props) => {
     area: "",
   });
 
+  const [expImage, setExpImage] = useState(null);
+
   const [image, setImage] = useState(null);
 
   useEffect(() => {
     // console.log("update exptoedit", expToEdit)
     if (expToEdit !== null) {
       setAddExperience(expToEdit);
+      setExpImage(null)
     } else {
       setAddExperience({
         role: "",
@@ -68,13 +72,15 @@ const MyExperienceModal = (props) => {
 
   const submitExperience = async () => {
     if (expToEdit) {
-      dispatch(updateExperience(user._id, expToEdit._id, addExperience));
+      dispatch(
+        updateExperience(user._id, expToEdit._id, addExperience, expImage)
+      );
 
       if (image) {
         postImage(image);
       }
     } else {
-      dispatch(createExperience(user._id, addExperience));
+      dispatch(createExperience(user._id, addExperience, expImage));
     }
 
     dispatch(getAllExperiences(user._id));
@@ -142,7 +148,11 @@ const MyExperienceModal = (props) => {
             <Form.Label>End Date</Form.Label>
             <Form.Control
               type="date"
-              value={addExperience.endDate ? format(parseISO(addExperience.endDate), "yyyy-MM-dd") : ""}
+              value={
+                addExperience.endDate
+                  ? format(parseISO(addExperience.endDate), "yyyy-MM-dd")
+                  : ""
+              }
               onChange={(e) =>
                 setAddExperience({
                   ...addExperience,
@@ -175,6 +185,14 @@ const MyExperienceModal = (props) => {
               onChange={(e) =>
                 setAddExperience({ ...addExperience, area: e.target.value })
               }
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Image</Form.Label>
+            <Form.Control
+              type="file"
+              onChange={(e) => setExpImage(e.target.files[0])}
             />
           </Form.Group>
 

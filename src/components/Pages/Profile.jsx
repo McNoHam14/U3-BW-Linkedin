@@ -9,8 +9,10 @@ import Sidebar from "../Sidebar";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Footer from "../Footer";
+import FriendRequest from "../FriendRequests";
 
 const Profile = () => {
+  
   const user = useSelector(state => state.getProfile.fetchProfile)
   useEffect(() => {
     document.title = user.name + " " + user.surname + " | BlinkedIn"
@@ -23,6 +25,7 @@ const Profile = () => {
         <Col md={9}>
           <ProfileComponent />
           <SuggestedComponent />
+          <FriendRequest />
           <AnalyticsComponent />
           <ResourcesComponent />
           <ActivityComponent />
