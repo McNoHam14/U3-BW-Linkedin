@@ -5,23 +5,40 @@ import { getAllPosts, updatePost, updatePostImage } from "../redux/actions";
 import { RiGalleryFill, RiMoreFill } from "react-icons/ri";
 import { FaVideo } from "react-icons/fa";
 import { FaDochub } from "react-icons/fa";
+import Loader from "./Loader";
+import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const EditPostModal = ({ handleClose, show, postId, postText }) => {
   const [content, setContent] = useState({
     text: "",
     image: "",
   });
+
+  const [loading, setLoading] = useState(false);
+
   // const [text, setText] = useState("");
   const dispatch = useDispatch();
-  const updatePostHandler = () => {
-    if (content.image) {
-      const formData = new FormData();
-      formData.append("post", content.image);
-      dispatch(updatePostImage(postId, formData, handleClose));
+  const updatePostHandler = async () => {
+    setLoading(true);
+    console.log("Loading started");
+    try {
+      if (content.image) {
+        const formData = new FormData();
+        formData.append("post", content.image);
+        await dispatch(updatePostImage(postId, formData, handleClose));
+      }
+      await dispatch(updatePost(postId, { text: content.text }));
+      await dispatch(getAllPosts());
+    } catch (error) {
+      console.error("Error updating the post: ", error);
+    } finally {
+      setLoading(false);
+      console.log("Loading ended");
+      toast.success("Your Post has been edited successfully!");
     }
-    dispatch(updatePost(postId, { text: content.text }));
-    dispatch(getAllPosts());
   };
+
   useEffect(() => {
     setContent(postText);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,6 +51,7 @@ const EditPostModal = ({ handleClose, show, postId, postText }) => {
       </Modal.Header>
 
       <Modal.Body>
+        {loading && <Loader />}
         <input
           type="file"
           onChange={(e) => {

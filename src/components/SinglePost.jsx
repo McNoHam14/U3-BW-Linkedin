@@ -17,8 +17,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletePost, friendRequest } from "../redux/actions";
 import { AiFillLike } from "react-icons/ai";
 import EditPostModal from "./EditPostModal";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
+import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
+
+import { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
+
 
 const SinglePost = (props) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -41,6 +47,7 @@ const SinglePost = (props) => {
   });
   const handleDelete = () => {
     dispatch(deletePost(props.post?._id));
+    toast.error("Your Post has been successfully deleted!")
   };
 
   const [commentId, setCommentId] = useState(null);
@@ -52,8 +59,12 @@ const SinglePost = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleFriendReq = () => {
-    dispatch(friendRequest(props.post.user._id));
-  };
+    dispatch(friendRequest(props.post.user._id))
+    toast.success("Your friend request has been sent!")
+  }
+
+    
+ 
   useEffect(() => {
     getUserLikes();
     getComments();
@@ -64,6 +75,7 @@ const SinglePost = (props) => {
       getUserData(comment.userId);
     });
   }, [allComments]);
+
 
   const handleLike = () => {
     if (isLiked) {
@@ -309,7 +321,7 @@ const SinglePost = (props) => {
                 <Dropdown.Item eventKey="1">Save Post</Dropdown.Item>
                 <Dropdown.Item eventKey="2">Copy link to post</Dropdown.Item>
                 <Dropdown.Item eventKey="3">Embed this post</Dropdown.Item>
-                <Dropdown.Item eventKey="4" onClick={handleFriendReq}>
+                <Dropdown.Item eventKey="4" onClick={() => handleFriendReq()}>
                   Send Friend Request
                 </Dropdown.Item>
                 {props.post?.user?._id === profileDataID && (
