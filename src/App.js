@@ -1,6 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/style.css";
+import "./assets/css/SinglePost.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Navi from "./components/Navi";

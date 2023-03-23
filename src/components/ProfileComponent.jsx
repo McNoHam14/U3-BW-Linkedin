@@ -51,6 +51,24 @@ const ProfileComponent = () => {
       console.log(error);
     }
   };
+  const openCV = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/profile/users/${process.env.REACT_APP_USER_ID}/CV`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch");
+      } else {
+        const file = await response.blob();
+        const fileUrl = window.URL.createObjectURL(file);
+        window.open(fileUrl, "_blank");
+      }
+    } catch (error) {
+      console.log("error");
+      console.error(error);
+    }
+  };
 
   return (
     <section className="main-section">
@@ -124,6 +142,13 @@ const ProfileComponent = () => {
                     >
                       More
                     </Button>
+                    <Button
+                      variant="outline-primary "
+                      className="rounded-pill py-1 d-inline-block ml-2"
+                      onClick={openCV}
+                    >
+                      Open CV
+                    </Button>
                   </div>
                 </>
               )}
@@ -161,8 +186,7 @@ const ProfileComponent = () => {
               </Button>
             </form>
           </Modal.Body>
-          <Modal.Footer>
-          </Modal.Footer>
+          <Modal.Footer></Modal.Footer>
         </Modal>
       </div>
     </section>
