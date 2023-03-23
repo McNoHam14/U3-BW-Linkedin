@@ -7,6 +7,9 @@ import globalImage from "../assets/img/developer1.jfif";
 import { RiGalleryFill, RiMoreFill } from "react-icons/ri";
 import { FaVideo } from "react-icons/fa";
 import { FaDochub } from "react-icons/fa";
+import Loader from "./Loader";
+import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const StartPostModal = ({ show, handleClose, postID }) => {
   const profileData = useSelector((state) => state.getProfile.fetchProfile);
@@ -19,11 +22,22 @@ const StartPostModal = ({ show, handleClose, postID }) => {
   const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+  const [loading, setLoading] = useState(false);
 
-  const submitPost = () => {
-    dispatch(createPost({ text }, handleClose, postImage));
-    dispatch(getAllPosts());
-    setText("");
+  const submitPost = async () => {
+    setLoading(true);
+    console.log("Loading Started");
+    try {
+      await dispatch(createPost({ text }, handleClose, postImage));
+      await dispatch(getAllPosts());
+      setText("");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+      console.log("Loading ended");
+      toast.success("Your post has been submitted successfully.");
+    }
   };
   const uploadImage = async () => {
     const formData = new FormData();
@@ -57,8 +71,8 @@ const StartPostModal = ({ show, handleClose, postID }) => {
         <Modal.Header closeButton>
           <Modal.Title>Create a post</Modal.Title>
         </Modal.Header>
-
         <Modal.Body>
+          {loading && <Loader />}
           <div className="d-flex start-post-modal-header">
             {profileData ? (
               <img src={profileData.image} alt="user profile" />

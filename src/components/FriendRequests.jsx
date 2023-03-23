@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const FriendRequests = () => {
   const [friendRequests, setFriendRequests] = useState([]);
@@ -25,6 +27,7 @@ const FriendRequests = () => {
   const handleAccept = async (friendId) => {
     console.log("FriendID:", friendId);
     console.log("UserId:", currentUser);
+    toast.success("You've accepted the invitation");
     try {
       const res = await fetch(
         `${process.env.REACT_APP_BE_URL}/users/acceptRequest/${friendId}`,
@@ -50,6 +53,7 @@ const FriendRequests = () => {
   };
 
   const handleDecline = async (friendId) => {
+    toast.error("You've declined the invitation");
     try {
       const res = await fetch(
         `${process.env.REACT_APP_BE_URL}/users/declineRequest/${friendId}`,

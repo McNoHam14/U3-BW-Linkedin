@@ -212,7 +212,7 @@ export const createExperience = (userId, data, expImage) => {
 };
 
 export const updateExperience = (userId, expId, data, expImage) => {
-  console.log("IMage", expImage);
+  console.log("Image", expImage);
   return async (dispatch) => {
     try {
       const res = await fetch(
