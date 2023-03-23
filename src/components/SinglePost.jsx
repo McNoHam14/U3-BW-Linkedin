@@ -22,7 +22,7 @@ import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { toast } from "react-hot-toast";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 
 
@@ -59,13 +59,12 @@ const SinglePost = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleFriendReq = () => {
-
     dispatch(friendRequest(props.post.user._id))
     toast.success("Your friend request has been sent!")
   }
 
-    dispatch(friendRequest(props.post.user._id));
-  };
+    
+ 
   useEffect(() => {
     getUserLikes();
     getComments();
@@ -322,7 +321,7 @@ const SinglePost = (props) => {
                 <Dropdown.Item eventKey="1">Save Post</Dropdown.Item>
                 <Dropdown.Item eventKey="2">Copy link to post</Dropdown.Item>
                 <Dropdown.Item eventKey="3">Embed this post</Dropdown.Item>
-                <Dropdown.Item eventKey="4" onClick={handleFriendReq}>
+                <Dropdown.Item eventKey="4" onClick={() => handleFriendReq()}>
                   Send Friend Request
                 </Dropdown.Item>
                 {props.post?.user?._id === profileDataID && (

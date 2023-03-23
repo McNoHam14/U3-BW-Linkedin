@@ -2,6 +2,8 @@ import { BsFillPencilFill, BsXLg } from "react-icons/bs";
 import { format, parseISO } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteExperience } from "../redux/actions";
+import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const ExperienceTile = (props) => {
   const dispatch = useDispatch();
@@ -9,6 +11,7 @@ const ExperienceTile = (props) => {
 
   const handleDelete = () => {
     dispatch(deleteExperience(user._id, props.exp._id));
+    toast.error("Experience has been deleted!")
   };
   return (
     <div className="experience d-flex align-items-center pr-3 border-light-bottom">
