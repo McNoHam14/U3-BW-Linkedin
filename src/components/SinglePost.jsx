@@ -10,6 +10,8 @@ import { deletePost, friendRequest } from "../redux/actions";
 import { AiFillLike } from "react-icons/ai";
 import EditPostModal from "./EditPostModal";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const SinglePost = (props) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -23,6 +25,7 @@ const SinglePost = (props) => {
   });
   const handleDelete = () => {
     dispatch(deletePost(props.post?._id));
+    toast.error("Your Post has been successfully deleted!")
   };
 
   const [show, setShow] = useState(false);
@@ -31,6 +34,7 @@ const SinglePost = (props) => {
   const handleShow = () => setShow(true);
   const handleFriendReq = () => {
     dispatch(friendRequest(props.post.user._id))
+    toast.success("Your friend request has been sent!")
   }
 
   const handleLike = () => {

@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import Feed from "./components/Pages/Feed.jsx";
 import Profile from "./components/Pages/Profile";
 import ChatWindow from "./components/ChatWindow";
+import React from "react";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           </Routes>
         </Container>
         <ChatWindow />
+        <Toaster position="top-right" />
       </main>
     </BrowserRouter>
   );
