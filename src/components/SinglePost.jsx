@@ -290,7 +290,6 @@ const SinglePost = (props) => {
               <div className="post-profile-name">
                 <h6 className="mb-0">
                   <Link className="text-dark">
-                    hello
                     {props.post?.user?.name} {props.post?.user?.surname}
                   </Link>
                 </h6>
