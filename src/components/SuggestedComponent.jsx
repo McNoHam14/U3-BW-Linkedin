@@ -131,8 +131,8 @@ const SuggestedComponent = () => {
                     <Card.Title className="summary-work-box">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="48.11"
-                        height="48.03"
+                        width="60"
+                        height="60"
                         viewBox="0 0 48.11 48.03"
                         id="ui-feed-profile-small"
                         data-supported-dps="48x48"

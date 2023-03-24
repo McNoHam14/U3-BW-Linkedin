@@ -26,7 +26,7 @@ const AnalyticsComponent = () => {
                 <i className="bi bi-people-fill analytics-people-fill"></i>
                 <div className="d-flex">
                   <div className="analytics-profile-views pl-2">
-                    <span className="profile-views-title">
+                    <span className="profile-views-title hover-link-blue">
                       11 profile views
                     </span>
                     <p className="pl-1">Discover who's viewed your profile.</p>
@@ -39,7 +39,7 @@ const AnalyticsComponent = () => {
                 <i className="bi bi-search"></i>
                 <div className="d-flex">
                   <div className="analytics-search-appearances pl-2">
-                    <span className="search-appearances-title">
+                    <span className="search-appearances-title hover-link-blue">
                       37 search appearances
                     </span>
                     <p className="pl-1">
