@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import ExperienceTile from "./ExperienceTile";
 import MyExperienceModal from "./MyExperienceModal";
-import { BsPlus } from "react-icons/bs";
+import { BsPlus, BsDownload } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { getAllExperiences, getSingleExperience } from "../redux/actions";
 import { parseISO } from "date-fns";
@@ -38,13 +38,13 @@ const ExperiencesContainer = () => {
             href={`${process.env.REACT_APP_BE_URL}/users/6418374d8cec02cd9cc1dfd8/experiences/CSV`}
             download
           >
-            <BsPlus size="38" fill="rgba(0,0,0,0.6)" />
+            <BsDownload size="24" color="rgba(0,0,0,0.6)" />
           </a>
 
           <div>
             <BsPlus
               size="38"
-              fill="rgba(0,0,0,0.6)"
+              color="rgba(0,0,0,0.6)"
               onClick={() => handleShow(null)}
             />
           </div>

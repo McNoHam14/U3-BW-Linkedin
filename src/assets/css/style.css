@@ -57,7 +57,8 @@ h4 {
   z-index: 1031;
 }
 
-.navbar > .container, header > .container {
+.navbar > .container,
+header > .container {
   padding-inline: 15px;
 }
 
@@ -427,6 +428,7 @@ section h2 {
 }
 .before-dot {
   margin-inline: 5px;
+  margin-top: -7px;
   color: var(--text-black-light);
 }
 /* _______________________________________Home Page */
@@ -645,7 +647,8 @@ form svg:hover {
   right: 0;
 }
 
-.modal-backdrop, .modal.right {
+.modal-backdrop,
+.modal.right {
   margin-top: 52px;
 }
 .modal.right .modal-dialog {
@@ -658,9 +661,9 @@ form svg:hover {
   width: 380px;
   height: 100%;
   -webkit-transform: translate3d(0%, 0, 0);
-      -ms-transform: translate3d(0%, 0, 0);
-       -o-transform: translate3d(0%, 0, 0);
-          transform: translate3d(0%, 0, 0);
+  -ms-transform: translate3d(0%, 0, 0);
+  -o-transform: translate3d(0%, 0, 0);
+  transform: translate3d(0%, 0, 0);
 }
 
 .modal.right .modal-content {
@@ -677,16 +680,17 @@ form svg:hover {
 .modal.right.fade .modal-dialog {
   right: -380px;
   -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-     -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-       -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-          transition: opacity 0.3s linear, right 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+  transition: opacity 0.3s linear, right 0.3s ease-out;
 }
 
 .modal.right.fade.show .modal-dialog {
   right: 0;
 }
 
-.modal.right .modal-header, .modal.right .modal-content {
+.modal.right .modal-header,
+.modal.right .modal-content {
   border-radius: 0;
   border: none;
 }
@@ -730,7 +734,7 @@ form svg:hover {
 }
 
 .services {
-  padding-inline: 24px
+  padding-inline: 24px;
 }
 
 .services h6 {
@@ -760,4 +764,8 @@ form svg:hover {
   color: rgba(0, 0, 0, 0.9);
   font-size: 14px;
   margin: 0;
+}
+
+.hover-link-blue:hover {
+  color: var(--main-blue-color);
 }
