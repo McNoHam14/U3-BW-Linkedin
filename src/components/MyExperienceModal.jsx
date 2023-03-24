@@ -35,7 +35,7 @@ const MyExperienceModal = (props) => {
     // console.log("update exptoedit", expToEdit)
     if (expToEdit !== null) {
       setAddExperience(expToEdit);
-      setExpImage(null)
+      setExpImage(null);
     } else {
       setAddExperience({
         role: "",
@@ -87,7 +87,7 @@ const MyExperienceModal = (props) => {
 
     dispatch(getAllExperiences(user._id));
     props.handleClose();
-toast.success("Experience added")
+    toast.success("Experience added");
   };
 
   return (
@@ -199,7 +199,7 @@ toast.success("Experience added")
             />
           </Form.Group>
 
-          {expToEdit && (
+          {/* {expToEdit && (
             <Form.Group>
               <Form.Label>Company Logo</Form.Label>
               <Form.Control
@@ -211,7 +211,7 @@ toast.success("Experience added")
                 }}
               />
             </Form.Group>
-          )}
+          )} */}
         </Form>
       </Modal.Body>
       <Modal.Footer>

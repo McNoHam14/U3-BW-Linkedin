@@ -91,7 +91,6 @@ const ProfileComponent = () => {
                   <div className=" d-flex align-items-center">
                     <Card.Text className="text-black-light d-inline-block mb-0">
                       {profileData.area}
-                      {", North Rhine-Westphalia, Germany"}
                     </Card.Text>
                     <span className="before-dot">{"."}</span>
                     <a

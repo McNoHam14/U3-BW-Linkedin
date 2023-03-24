@@ -27,7 +27,7 @@ const ResourcesComponent = () => {
                   <div className="creator-mode d-flex pl-3 align-items-center">
                     <i className="bi bi-radioactive"></i>
                     <div className="pr-1"></div>
-                    <span className="creator-mode-title pl-1">
+                    <span className="creator-mode-title pl-1 hover-link-blue">
                       Creator Mode
                     </span>
                     <Button className="creator-btn" variant="light">
@@ -47,7 +47,9 @@ const ResourcesComponent = () => {
             <div>
               <div className="my-network-div">
                 <i className="bi bi-people-fill"></i>
-                <span className="my-network-title pl-2">My network</span>
+                <span className="my-network-title pl-2 hover-link-blue">
+                  My network
+                </span>
               </div>
               <p className="my-network-para">
                 See and manage your connections and interests.
